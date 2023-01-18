@@ -6,5 +6,5 @@
 - Create a task: 'POST /tasks'
 - Remove a task: 'DELETE /tasks/\<id>'
 - Edit a task: 'PUT /tasks/\<id>'
-- Get all tasks: 'GET /tasks'
-- Get single task: 'GET /tasks/\<id>'
+- [x] Get all tasks: 'GET /tasks' V
+- Get single task: 'GET /tasks/\<id>' V
