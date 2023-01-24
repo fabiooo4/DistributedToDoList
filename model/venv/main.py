@@ -1,17 +1,24 @@
 from urllib import request
 from flask import Flask
+from flask_cors import CORS
 import sqlite3
 
+# run the app: python -m flask --app main.py run
 app = Flask(__name__)
+CORS(app)
 
-# fetch('/tasks/' + 1, {
-#   method: 'DELETE',
-#   headers: {
-#     'Content-Type': 'application/json'
-#   },
-# })
-# .then(res => res.json())
-# .then(data => console.log(data))
+taskdb = "taskdb.db"
+
+def connect(database):
+    con = sqlite3.connect(database)
+    cur = con.cursor()
+    
+    database = {
+      "db": con,
+      "cursor": cur
+    }
+    
+    return database
 
 @app.route('/')
 def index():
@@ -21,14 +28,22 @@ def index():
 #! Tasks list
 @app.route('/tasks', methods=["GET"])
 def taskList():
-    con = sqlite3.connect("venv/taskdb.db")
-    cur = con.cursor()
+    database = connect(taskdb)
 
-    cur.execute("""
+    database.get("cursor").execute("""
     SELECT * FROM tasks
     """)
     
-    out = cur.fetchall()
+    out = []
+    for row in database.get("cursor").fetchall():
+      out.append({
+        "id": row[0],
+        "date": row[1],
+        "title": row[2],
+        "content": row[3],
+        "state": row[4]
+      })
+    
     return {
       "data": out,
       "size": len(out)
@@ -37,51 +52,71 @@ def taskList():
 #! Single task
 @app.route('/tasks/<int:id>')
 def taskDetails(id):
-    con = sqlite3.connect("venv/taskdb.db")
-    cur = con.cursor()
+    database = connect(taskdb)
     
-    cur.execute(f"""
+    database.get("cursor").execute(f"""
     SELECT * FROM tasks
       WHERE id = ?
     """, (id,))
       
-    out = cur.fetchone()
+    out = []
+    for row in database.get("cursor").fetchall():
+      out.append({
+        "id": row[0],
+        "date": row[1],
+        "title": row[2],
+        "content": row[3],
+        "state": row[4]
+      })
+    
     return {
       "data": out,
-      # error handling
+      "exists": len(out) > 0
+    }
+  
+#! Update task
+@app.route('/tasks/<int:id>', methods=["PUT"])
+def editTask(id):
+    database = connect(taskdb)
+    
+    database.get("cursor").execute(f"""
+    UPDATE tasks
+      SET date = ?, title = ?, content = ?, state = ?
+      WHERE id = ?
+    """, (request.json["date"], request.json["title"], request.json["content"], request.json["state"], id))
+    database.get("db").commit()
+    
+    return {
+      "updated": True,
     }
 
 #! Delete task
 @app.route('/tasks/<int:id>' , methods=["DELETE"])
 def taskDelete(id):
-    con = sqlite3.connect("venv/taskdb.db")
-    cur = con.cursor()
+    database = connect(taskdb)
     
-    cur.execute(f"""
+    database.get("cursor").execute(f"""
     DELETE FROM tasks
       WHERE id = {id} 
     """)
-    con.commit()
+    database.get("db").commit()
     
     return {
       "deleted": True,
     }
 
-#! Create task
+#! Create task given a json
 @app.route('/tasks', methods=["POST"])
-def taskCreate(body):
-  con = sqlite3.connect("venv/taskdb.db")
-  cur = con.cursor()
-  
-  body = {"id": 2, "date": "20/01/2023", "title": "terzo task", "content": "che bello creare task", "state": False}
-  body = request.get_json()
-  cur.execute(f"""
-  INSERT INTO tasks(id, date, title, content, state) VALUES('{body["id"]}','{body["date"]}', '{body["title"]}', '{body["content"]}', '{body["state"]}')
-  """)
-  con.commit()
-  
-  return {
-    "created": True,
-  }
+def addTask():  
+    database = connect(taskdb)
+    
+    database.get("cursor").execute("""
+    INSERT INTO tasks(id, date, title, content, state) VALUES(?, ?, ?, ?, ?)
+    """, (request.json["id"], request.json["date"], request.json["title"], request.json["content"], request.json["state"]))
+    database.get("db").commit()
+    
+    return {
+      "created": True,
+    }
 
 print("Server started")

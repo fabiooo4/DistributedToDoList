@@ -1,7 +1,17 @@
 <script>
   import Task from '../components/view/task.svelte';
   import { toDoList } from '../components/controller/store.js';
+  import { onMount } from 'svelte';
 
+  let url = "http://127.0.0.1:5000/";
+
+  // Load all tasks from the database
+  onMount(async () => {
+    const response = await fetch(url + "tasks", { method:'GET' });
+    let tasks = await response.json();
+
+    toDoList.set(tasks.data);
+  });
 </script>
 
 <h1 class="text-6xl text-center font-extrabold m-4">ToDo List</h1>
