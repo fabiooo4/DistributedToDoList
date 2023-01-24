@@ -1,17 +1,11 @@
 from urllib import request
 from flask import Flask
+from flask_cors import CORS
 import sqlite3
 
+# run the app: python -m flask --app main.py run
 app = Flask(__name__)
-
-# fetch('/tasks/' + 1, {
-#   method: 'DELETE',
-#   headers: {
-#     'Content-Type': 'application/json'
-#   },
-# })
-# .then(res => res.json())
-# .then(data => console.log(data))
+CORS(app)
 
 @app.route('/')
 def index():
@@ -21,7 +15,7 @@ def index():
 #! Tasks list
 @app.route('/tasks', methods=["GET"])
 def taskList():
-    con = sqlite3.connect("venv/taskdb.db")
+    con = sqlite3.connect("taskdb.db")
     cur = con.cursor()
 
     cur.execute("""
@@ -37,7 +31,7 @@ def taskList():
 #! Single task
 @app.route('/tasks/<int:id>')
 def taskDetails(id):
-    con = sqlite3.connect("venv/taskdb.db")
+    con = sqlite3.connect("taskdb.db")
     cur = con.cursor()
     
     cur.execute(f"""
@@ -48,40 +42,39 @@ def taskDetails(id):
     out = cur.fetchone()
     return {
       "data": out,
-      # error handling
     }
 
 #! Delete task
-@app.route('/tasks/<int:id>' , methods=["DELETE"])
-def taskDelete(id):
-    con = sqlite3.connect("venv/taskdb.db")
-    cur = con.cursor()
+# @app.route('/tasks/<int:id>' , methods=["DELETE"])
+# def taskDelete(id):
+#     con = sqlite3.connect("taskdb.db")
+#     cur = con.cursor()
     
-    cur.execute(f"""
-    DELETE FROM tasks
-      WHERE id = {id} 
-    """)
-    con.commit()
+#     cur.execute(f"""
+#     DELETE FROM tasks
+#       WHERE id = {id} 
+#     """)
+#     con.commit()
     
-    return {
-      "deleted": True,
-    }
+#     return {
+#       "deleted": True,
+#     }
 
 #! Create task
-@app.route('/tasks', methods=["POST"])
-def taskCreate(body):
-  con = sqlite3.connect("venv/taskdb.db")
-  cur = con.cursor()
+# @app.route('/tasks', methods=["POST"])
+# def taskCreate(body):
+#   con = sqlite3.connect("taskdb.db")
+#   cur = con.cursor()
   
-  body = {"id": 2, "date": "20/01/2023", "title": "terzo task", "content": "che bello creare task", "state": False}
-  body = request.get_json()
-  cur.execute(f"""
-  INSERT INTO tasks(id, date, title, content, state) VALUES('{body["id"]}','{body["date"]}', '{body["title"]}', '{body["content"]}', '{body["state"]}')
-  """)
-  con.commit()
+#   body = {"id": 2, "date": "20/01/2023", "title": "terzo task", "content": "che bello creare task", "state": False}
+#   body = request.get_json()
+#   cur.execute(f"""
+#   INSERT INTO tasks(id, date, title, content, state) VALUES('{body["id"]}','{body["date"]}', '{body["title"]}', '{body["content"]}', '{body["state"]}')
+#   """)
+#   con.commit()
   
-  return {
-    "created": True,
-  }
+#   return {
+#     "created": True,
+#   }
 
 print("Server started")
