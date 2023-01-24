@@ -13,7 +13,7 @@
 
       <!--! Task title and description -->
       <h2 class="card-title font-bold">{task.title}</h2>
-      <p class="font-medium">{task.description}</p>
+      <p class="font-medium">{task.content}</p>
     </div>
 
     <div class="card-actions justify-end mt-2 relative">

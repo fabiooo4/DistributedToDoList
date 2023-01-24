@@ -83,4 +83,5 @@ def taskCreate(body):
   return {
     "created": True,
   }
-  
+
+print("Server started")
