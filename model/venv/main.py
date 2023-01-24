@@ -7,6 +7,19 @@ import sqlite3
 app = Flask(__name__)
 CORS(app)
 
+taskdb = "taskdb.db"
+
+def connect(database):
+    con = sqlite3.connect(database)
+    cur = con.cursor()
+    
+    database = {
+      "db": con,
+      "cursor": cur
+    }
+    
+    return database
+
 @app.route('/')
 def index():
     out = [{"msg": "index"}]
@@ -15,15 +28,14 @@ def index():
 #! Tasks list
 @app.route('/tasks', methods=["GET"])
 def taskList():
-    con = sqlite3.connect("taskdb.db")
-    cur = con.cursor()
+    database = connect(taskdb)
 
-    cur.execute("""
+    database.get("cursor").execute("""
     SELECT * FROM tasks
     """)
     
     out = []
-    for row in cur.fetchall():
+    for row in database.get("cursor").fetchall():
       out.append({
         "id": row[0],
         "date": row[1],
@@ -40,56 +52,71 @@ def taskList():
 #! Single task
 @app.route('/tasks/<int:id>')
 def taskDetails(id):
-    con = sqlite3.connect("taskdb.db")
-    cur = con.cursor()
+    database = connect(taskdb)
     
-    cur.execute(f"""
+    database.get("cursor").execute(f"""
     SELECT * FROM tasks
       WHERE id = ?
     """, (id,))
       
-    out = cur.fetchone()
-    out.append({
-      "id": out[0],
-      "date": out[1],
-      "title": out[2],
-      "content": out[3],
-      "state": out[4]
-    })
+    out = []
+    for row in database.get("cursor").fetchall():
+      out.append({
+        "id": row[0],
+        "date": row[1],
+        "title": row[2],
+        "content": row[3],
+        "state": row[4]
+      })
     
     return {
       "data": out,
+      "exists": len(out) > 0
+    }
+  
+#! Update task
+@app.route('/tasks/<int:id>', methods=["PUT"])
+def editTask(id):
+    database = connect(taskdb)
+    
+    database.get("cursor").execute(f"""
+    UPDATE tasks
+      SET date = ?, title = ?, content = ?, state = ?
+      WHERE id = ?
+    """, (request.json["date"], request.json["title"], request.json["content"], request.json["state"], id))
+    database.get("db").commit()
+    
+    return {
+      "updated": True,
     }
 
 #! Delete task
 @app.route('/tasks/<int:id>' , methods=["DELETE"])
 def taskDelete(id):
-    con = sqlite3.connect("taskdb.db")
-    cur = con.cursor()
+    database = connect(taskdb)
     
-    cur.execute(f"""
+    database.get("cursor").execute(f"""
     DELETE FROM tasks
       WHERE id = {id} 
     """)
-    con.commit()
+    database.get("db").commit()
     
     return {
       "deleted": True,
     }
 
-#! Create task
+#! Create task given a json
 @app.route('/tasks', methods=["POST"])
-def taskCreate(body):
-  con = sqlite3.connect("taskdb.db")
-  cur = con.cursor()
-  
-  cur.execute(f"""
-  INSERT INTO tasks(id, date, title, content, state) VALUES('{body["id"]}','{body["date"]}', '{body["title"]}', '{body["content"]}', '{body["state"]}')
-  """)
-  con.commit()
-  
-  return {
-    "created": True,
-  }
+def addTask():  
+    database = connect(taskdb)
+    
+    database.get("cursor").execute("""
+    INSERT INTO tasks(id, date, title, content, state) VALUES(?, ?, ?, ?, ?)
+    """, (request.json["id"], request.json["date"], request.json["title"], request.json["content"], request.json["state"]))
+    database.get("db").commit()
+    
+    return {
+      "created": True,
+    }
 
 print("Server started")

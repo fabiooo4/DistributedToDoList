@@ -5,6 +5,7 @@
 
   let url = "http://127.0.0.1:5000/";
 
+  // Load all tasks from the database
   onMount(async () => {
     const response = await fetch(url + "tasks", { method:'GET' });
     let tasks = await response.json();
