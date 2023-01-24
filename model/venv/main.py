@@ -22,7 +22,16 @@ def taskList():
     SELECT * FROM tasks
     """)
     
-    out = cur.fetchall()
+    out = []
+    for row in cur.fetchall():
+      out.append({
+        "id": row[0],
+        "date": row[1],
+        "title": row[2],
+        "content": row[3],
+        "state": row[4]
+      })
+    
     return {
       "data": out,
       "size": len(out)
@@ -40,41 +49,47 @@ def taskDetails(id):
     """, (id,))
       
     out = cur.fetchone()
+    out.append({
+      "id": out[0],
+      "date": out[1],
+      "title": out[2],
+      "content": out[3],
+      "state": out[4]
+    })
+    
     return {
       "data": out,
     }
 
 #! Delete task
-# @app.route('/tasks/<int:id>' , methods=["DELETE"])
-# def taskDelete(id):
-#     con = sqlite3.connect("taskdb.db")
-#     cur = con.cursor()
+@app.route('/tasks/<int:id>' , methods=["DELETE"])
+def taskDelete(id):
+    con = sqlite3.connect("taskdb.db")
+    cur = con.cursor()
     
-#     cur.execute(f"""
-#     DELETE FROM tasks
-#       WHERE id = {id} 
-#     """)
-#     con.commit()
+    cur.execute(f"""
+    DELETE FROM tasks
+      WHERE id = {id} 
+    """)
+    con.commit()
     
-#     return {
-#       "deleted": True,
-#     }
+    return {
+      "deleted": True,
+    }
 
 #! Create task
-# @app.route('/tasks', methods=["POST"])
-# def taskCreate(body):
-#   con = sqlite3.connect("taskdb.db")
-#   cur = con.cursor()
+@app.route('/tasks', methods=["POST"])
+def taskCreate(body):
+  con = sqlite3.connect("taskdb.db")
+  cur = con.cursor()
   
-#   body = {"id": 2, "date": "20/01/2023", "title": "terzo task", "content": "che bello creare task", "state": False}
-#   body = request.get_json()
-#   cur.execute(f"""
-#   INSERT INTO tasks(id, date, title, content, state) VALUES('{body["id"]}','{body["date"]}', '{body["title"]}', '{body["content"]}', '{body["state"]}')
-#   """)
-#   con.commit()
+  cur.execute(f"""
+  INSERT INTO tasks(id, date, title, content, state) VALUES('{body["id"]}','{body["date"]}', '{body["title"]}', '{body["content"]}', '{body["state"]}')
+  """)
+  con.commit()
   
-#   return {
-#     "created": True,
-#   }
+  return {
+    "created": True,
+  }
 
 print("Server started")

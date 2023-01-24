@@ -1,11 +1,6 @@
-import { onMount } from "svelte";
-
-let url = "http://127.0.0.1:5000/tasks/";
-let tasks = null;
-
-onMount(async () => {
-  const response = await fetch(url);
-  tasks = await response.json();
-
-  console.log(tasks);
-});
+// Get a single task from the server
+export const getTask = async (url, index) => {
+  const response = await fetch(url + index.toString(), { method: "GET" });
+  const data = await response.json();
+  return data;
+}
