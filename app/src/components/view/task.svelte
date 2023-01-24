@@ -10,7 +10,7 @@
     <div class="relative z-0">
       <!--! Checkbox -->
       <div class="absolute right-0 z-10">
-        <input type="checkbox" checked={task.state} class="checkbox checkbox-primary"/>
+        <input type="checkbox" checked={task.state} class="checkbox checkbox-success"/>
       </div>
 
       <!--! Task title and description -->

@@ -25,6 +25,12 @@
       <Task {task} />
     {/each}
   {:else}
-    <h2 class='text-2xl text-center font-extrabold m-4'>No tasks yet</h2>
+    <h2 class='text-2xl text-center font-extrabold m-4'>Loading...</h2>
+    <!--! Loading spinner -->
+    <div class="flex flex-col items-center justify-center col-span-3">
+      <div class="flex flex-row items-center justify-center">
+        <div class="w-12 h-12 border-dotted border-1 border-t-4 border-zinc-900 rounded-full animate-spin"></div>
+      </div>
+    </div>
   {/if}
 </div>
