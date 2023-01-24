@@ -1,5 +1,6 @@
 <script>
   import Task from '../components/view/task.svelte';
+  import AddTask from '../components/view/addTask.svelte';
   import { toDoList } from '../components/controller/store.js';
   import { onMount } from 'svelte';
 
@@ -15,6 +16,8 @@
 </script>
 
 <h1 class="text-6xl text-center font-extrabold m-4">ToDo List</h1>
+
+<AddTask />
 
 <div class='flex flex-col flex-center items-center'>
   {#if $toDoList.length > 0}

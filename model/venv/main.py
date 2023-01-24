@@ -74,16 +74,16 @@ def taskDetails(id):
       "exists": len(out) > 0
     }
   
-#! Update task
+#! Edit task
 @app.route('/tasks/<int:id>', methods=["PUT"])
 def editTask(id):
     database = connect(taskdb)
     
     database.get("cursor").execute(f"""
     UPDATE tasks
-      SET date = ?, title = ?, content = ?, state = ?
+      SET title = ?, content = ?
       WHERE id = ?
-    """, (request.json["date"], request.json["title"], request.json["content"], request.json["state"], id))
+    """, (request.json["title"], request.json["content"], id))
     database.get("db").commit()
     
     return {
