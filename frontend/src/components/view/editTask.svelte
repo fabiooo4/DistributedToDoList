@@ -31,6 +31,12 @@
       alert("Please fill all the fields");
     }
   };
+
+  const close = () => {
+    if (modal === "") {
+      modal = task.id;
+    }
+  }
 </script>
 
 <div class="flex justify-center">
@@ -73,7 +79,7 @@
 
       <div class="modal-action">
         <!-- svelte-ignore a11y-click-events-have-key-events -->
-        <label for={modal} class="btn btn-ghost" on:click={clear}>Cancel</label>
+        <label for={modal} class="btn btn-ghost" on:click={close}>Cancel</label>
         <!-- svelte-ignore a11y-click-events-have-key-events -->
         <label for={modal} class="btn btn-primary" on:click={handleEdit}>Edit</label>
       </div>
