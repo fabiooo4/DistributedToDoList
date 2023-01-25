@@ -24,6 +24,7 @@
 
       noClose = "addTaskModal"; // Prevents the modal from closing
     } else {
+      noClose = "";
       alert("Please fill all the fields");
     }
 

@@ -14,6 +14,12 @@
     content = task.content;
   };
 
+  const close = () => {
+    if (modal === "") {
+      modal = task.id;
+    }
+  }
+  
   const handleEdit = () => {
     if (title && date) {
       let body = {
@@ -32,11 +38,6 @@
     }
   };
 
-  const close = () => {
-    if (modal === "") {
-      modal = task.id;
-    }
-  }
 </script>
 
 <div class="flex justify-center">
