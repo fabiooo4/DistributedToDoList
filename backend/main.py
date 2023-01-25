@@ -1,5 +1,6 @@
 from flask import Flask, request
 from flask_cors import CORS
+import datetime
 import sqlite3
 
 # run the app: python -m flask --app main.py run
@@ -130,6 +131,7 @@ def taskDelete(id):
 def addTask():  
   database = connect(taskdb)
   body = getBody()
+  print(body)
   
   database.get("cursor").execute("""
   INSERT INTO tasks(date, title, content, state) VALUES(?, ?, ?, ?)
@@ -137,7 +139,7 @@ def addTask():
   database.get("db").commit()
   
   return {
-    "added": True
+    "added": True,
   }
 
 print("Server started")
