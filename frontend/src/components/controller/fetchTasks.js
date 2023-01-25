@@ -62,8 +62,12 @@ export const addTask = async (task) => {
 export const editTask = async (task) => {
   const response = await fetch(url + "/" + task.id, {
     method: "PUT",
+    headers: {
+      'Content-type': 'application/json'
+    },
     body: JSON.stringify(task)
   });
   const data = await response.json();
+  refreshTasks();
   return data;
 }
