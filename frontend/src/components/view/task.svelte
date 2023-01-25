@@ -6,7 +6,7 @@
   export let task;
 </script>
 
-<div class="card card-compact w-96 m-2 bg-base-100 shadow-xl">
+<div class="card card-compact w-80 m-4 shrink bg-base-100 shadow-xl">
   <div class="card-body">
 
     <div class="relative z-0">
