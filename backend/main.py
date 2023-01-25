@@ -101,12 +101,13 @@ def toggleState(id):
 @app.route('/tasks/<int:id>', methods=["PUT"])
 def editTask(id):
   database = connect(taskdb)
+  body = getBody()
   
   database.get("cursor").execute(f"""
   UPDATE tasks
-    SET title = ?, content = ?
+    SET date = ?, title = ?, content = ?
     WHERE id = ?
-  """, (request.json["title"], request.json["content"], id))
+  """, (body["date"], body["title"], body["content"], id))
   database.get("db").commit()
   
   return {

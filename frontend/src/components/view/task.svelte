@@ -1,4 +1,5 @@
 <script>
+  import EditTask from "./editTask.svelte";
   import { deleteTask } from "../controller/fetchTasks";
   import { toggleState } from "../controller/fetchTasks";
 
@@ -15,8 +16,8 @@
       </div>
 
       <!--! Task title and description -->
-      <h2 class="card-title font-bold break-all pr-8">{task.title}</h2>
-      <p class="font-medium break-all">{task.content}</p>
+      <h2 class="card-title font-bold break-word pr-8">{task.title}</h2>
+      <p class="font-medium break-word">{task.content}</p>
     </div>
 
     <div class="card-actions justify-end mt-2 relative">
@@ -24,7 +25,7 @@
       <p class="text-sm text-base-content-100 relative text-end self-center mr-2">Due to: {task.date}</p>
 
       <!--! Edit button -->
-      <button class="btn btn-primary btn-sm">Edit</button>
+      <EditTask {task} />
 
       <!--! Delete button -->
       <button class="btn btn-error btn-xs btn-circle absolute left-0 self-center" on:click={()=>{deleteTask(task.id)}}>

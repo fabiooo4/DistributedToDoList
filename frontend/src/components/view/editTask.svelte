@@ -1,44 +1,47 @@
 <script>
-  import { addTask } from "../controller/fetchTasks";
+  import { editTask } from "../controller/fetchTasks";
 
-  let title = "";
-  let date = "";
-  let content = "";
-  let noClose = "";
+  export let task;
+
+  let title = task.title;
+  let date = task.date;
+  let content = task.content;
+  $: modal = task.id;
 
   const clear = () => {
-    title = "";
-    date = "";
-    content = "";
+    title = task.title;
+    date = task.date;
+    content = task.content;
   };
 
-  const handleAdd = () => {
+  const handleEdit = () => {
     if (title && date) {
-      const body = {
+      let body = {
+        "id": task.id,
         "date": date,
         "title": title,
         "content": content
       };
 
-      addTask(body);
+      editTask(body);
 
-      noClose = "addTaskModal"; // Prevents the modal from closing
+      modal = task.id;
     } else {
+      modal = "";
       alert("Please fill all the fields");
     }
-
   };
 </script>
 
-<div class="flex justify-center m-4">
+<div class="flex justify-center">
   <!--! Button to open modal -->
   <!-- svelte-ignore a11y-click-events-have-key-events -->
-  <label for="addTaskModal" class="btn btn-secondary" on:click={clear}>Add task</label>
+  <label for={modal} class="btn btn-primary btn-sm" on:click={clear}>Edit</label>
 
-  <input type="checkbox" id="addTaskModal" class="modal-toggle" />
+  <input type="checkbox" id={modal} class="modal-toggle" />
   <div class="modal modal-bottom sm:modal-middle">
     <div class="modal-box">
-      <h3 class="font-extrabold text-center text-5xl mb-8">Add a new task</h3>
+      <h3 class="font-extrabold text-center text-5xl mb-8">Edit task</h3>
       <div class="modal-body">
         
         <div class="flex flex-row p-0 m-0">
@@ -69,8 +72,10 @@
       </div>
 
       <div class="modal-action">
-        <label for="addTaskModal" class="btn btn-ghost">Cancel</label>
-        <label for={noClose} class="btn btn-primary" on:click={handleAdd} on:keydown={handleAdd} on:keypress={handleAdd}>Add</label>
+        <!-- svelte-ignore a11y-click-events-have-key-events -->
+        <label for={modal} class="btn btn-ghost" on:click={clear}>Cancel</label>
+        <!-- svelte-ignore a11y-click-events-have-key-events -->
+        <label for={modal} class="btn btn-primary" on:click={handleEdit}>Edit</label>
       </div>
     </div>
   </div>
