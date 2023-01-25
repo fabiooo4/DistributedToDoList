@@ -20,11 +20,11 @@
 <AddTask />
 
 <div class='flex flex-col flex-center items-center'>
-  {#if $toDoList.length > 0}
-    {#each $toDoList as task}
-      <Task {task}/>
-    {/each}
-  {:else}
-    <h2 class='text-2xl text-center font-bold m-4'>No tasks yet</h2>
-  {/if}
+    {#if $toDoList.length > 0}
+      {#each $toDoList as task}
+        <Task {task}/>
+      {/each}
+    {:else}
+      <h2 class='text-2xl text-center font-bold m-4'>No tasks yet</h2>
+    {/if}
 </div>

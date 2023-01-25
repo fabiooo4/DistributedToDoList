@@ -47,9 +47,12 @@ export const deleteTask = async (index) => {
 export const addTask = async (task) => {
   const response = await fetch(url, {
     method: "POST",
-    body: JSON.stringify(task)
+    body: JSON.stringify(task),
+    contentType: "application/json"
   });
   const data = await response.json();
+
+  refreshTasks();
   return data;
 }
 
