@@ -22,7 +22,7 @@
 <div class='flex flex-col flex-center items-center'>
   {#if $toDoList.length > 0}
     {#each $toDoList as task}
-      <Task {task} />
+      <Task {task}/>
     {/each}
   {:else}
     <h2 class='text-2xl text-center font-extrabold m-4'>Loading...</h2>

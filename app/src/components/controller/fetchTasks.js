@@ -11,10 +11,6 @@ export const getTask = async (index) => {
 export const deleteTask = async (index) => {
   const response = await fetch(url + index, {
     method: "DELETE",
-    mode: 'cors',
-    headers: {
-      'Access-Control-Allow-Origin':'http://localhost:5000',
-    }
   });
   const data = await response.json();
   return data;
