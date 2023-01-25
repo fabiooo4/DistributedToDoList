@@ -19,7 +19,7 @@
 
 <AddTask />
 
-<div class='flex flex-col flex-center items-center'>
+<div class='flex flex-row flex-wrap justify-center items-center w-screen'>
     {#if $toDoList.length > 0}
       {#each $toDoList as task}
         <Task {task}/>
