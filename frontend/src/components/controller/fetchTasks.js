@@ -54,7 +54,6 @@ export const addTask = async (task) => {
   });
 
   const data = await response.json();
-
   refreshTasks();
   return data;
 }

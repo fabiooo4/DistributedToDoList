@@ -15,11 +15,14 @@
       </div>
 
       <!--! Task title and description -->
-      <h2 class="card-title font-bold">{task.title}</h2>
-      <p class="font-medium">{task.content}</p>
+      <h2 class="card-title font-bold break-all pr-8">{task.title}</h2>
+      <p class="font-medium break-all">{task.content}</p>
     </div>
 
     <div class="card-actions justify-end mt-2 relative">
+      <!--! Date -->
+      <p class="text-sm text-base-content-100 relative text-end self-center mr-2">Due to: {task.date}</p>
+
       <!--! Edit button -->
       <button class="btn btn-primary btn-sm">Edit</button>
 

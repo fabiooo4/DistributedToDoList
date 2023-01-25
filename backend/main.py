@@ -38,7 +38,7 @@ def taskList():
   database = connect(taskdb)
 
   database.get("cursor").execute("""
-  SELECT * FROM tasks
+  SELECT * FROM tasks ORDER BY date
   """)
   
   out = []
@@ -131,7 +131,6 @@ def taskDelete(id):
 def addTask():  
   database = connect(taskdb)
   body = getBody()
-  print(body)
   
   database.get("cursor").execute("""
   INSERT INTO tasks(date, title, content, state) VALUES(?, ?, ?, ?)
