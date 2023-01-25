@@ -8,3 +8,7 @@
 - [ ] Edit a task: 'PUT /tasks/\<id>'
 - [x] Get all tasks: 'GET /tasks'
 - [x] Get single task: 'GET /tasks/\<id>'
+
+## Todo
+- [ ] Add tasks
+- [ ] Edit tasks

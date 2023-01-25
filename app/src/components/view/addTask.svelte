@@ -1,5 +1,6 @@
 <script>
-
+  import { toDoList } from "../controller/store.js";
+  import { addTask } from "../controller/fetchTasks";
 </script>
 
 <div class="flex justify-center m-4">
