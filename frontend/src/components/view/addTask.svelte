@@ -38,12 +38,12 @@
   <input type="checkbox" id="addTaskModal" class="modal-toggle" />
   <div class="modal modal-bottom sm:modal-middle">
     <div class="modal-box">
-      <h3 class="font-extrabold text-center text-5xl mb-8">Add a new task</h3>
+      <h3 class="font-extrabold text-center text-5xl mb-8">Add task</h3>
       <div class="modal-body">
         
-        <div class="flex flex-row p-0 m-0">
+        <div class="flex flex-col sm:flex-row p-0 m-0">
           <!--! Title input -->
-          <div class="form-control mr-2">
+          <div class="form-control w-full sm:w-1/2 m-0 sm:m-2">
             <label for="title" class="label">
               <span class="label-text font-bold text-lg">Title</span>
             </label>
@@ -51,7 +51,7 @@
           </div>
   
           <!--! Date input -->
-          <div class="form-control w-full ml-2">
+          <div class="form-control w-full sm:w-1/2 m-0 sm:m-2">
             <label for="title" class="label">
               <span class="label-text font-bold text-lg">Date</span>
             </label>
@@ -60,7 +60,7 @@
         </div>
         
         <!--! Content input -->
-        <div class="form-control mt-2">
+        <div class="form-control mt-2 mx-0 sm:mx-2">
           <label for="content" class="label">
             <span class="label-text font-bold text-lg">Description</span>
           </label>
