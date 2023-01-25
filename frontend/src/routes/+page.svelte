@@ -15,16 +15,16 @@
   });
 </script>
 
-<h1 class="text-6xl text-center font-extrabold m-4">ToDo List</h1>
+<h1 class="text-8xl text-center font-extrabold m-4">ToDo List</h1>
 
 <AddTask />
 
-<div class='flex flex-row flex-wrap justify-center items-center w-screen'>
-    {#if $toDoList.length > 0}
-      {#each $toDoList as task}
-        <Task {task}/>
-      {/each}
-    {:else}
-      <h2 class='text-2xl text-center font-bold m-4'>No tasks yet</h2>
-    {/if}
+<div class='flex flex-row flex-wrap justify-center items-center w-screen pb-10'>
+  {#if $toDoList.length > 0}
+    {#each $toDoList as task}
+      <Task {task}/>
+    {/each}
+  {:else}
+    <h2 class='text-2xl text-center font-bold m-4'>No tasks yet</h2>
+  {/if}
 </div>
