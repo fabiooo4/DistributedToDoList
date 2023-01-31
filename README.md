@@ -18,39 +18,38 @@ python -m flask --app main.py run
 npm run dev
 ```
 
-5. Open the browser and open the server on your localhost
-6. Enjoy! 
-
-<br>
+5. Open the browser and run the website on your localhost
+6. Enjoy!
 
 ## Extra
 The themes used are based on [daisyUI](https://daisyui.com/docs/themes/), a Tailwind CSS plugin.
 
 The theme can be changed by changing the `data-theme` variable in `src/app.html`, the best ones are `dracula`, `valentine`, `winter`, `lemonade`, `cupcake` and `emerald`.
 
-<br>
+<br><br>
 
 # Desktop Page Preview 
-## Main page
+### Main page
 ![TaskList](https://i.postimg.cc/hvzVT8W5/image-2023-01-31-204407880.png)
 <br>
 
-## Add and edit task
+### Add and edit task
 ![AddTask](https://i.postimg.cc/0ydDY2FP/image-2023-01-31-204442409.png)
 <br>
 
-## Delete task
+### Delete task
 ![DeleteTask](https://i.postimg.cc/1zv7yZGc/image-2023-01-31-204519187.png)
-<br><br><br>
+
+<br><br>
 
 # Mobile Page Preview
-## Main page
+### Main page
 ![TaskListMobile](https://i.postimg.cc/k5GFFRSK/image-2023-01-31-204712294.png)
 <br>
 
-## Add and edit task
+### Add and edit task
 ![AddTaskMobile](https://i.postimg.cc/dVyJ74Hy/image-2023-01-31-205021527.png)
 <br>
 
-## Delete task
+### Delete task
 ![DeleteTaskMobile](https://i.postimg.cc/VLy8xjLs/image-2023-01-31-205207973.png)
