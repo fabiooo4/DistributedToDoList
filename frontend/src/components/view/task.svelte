@@ -20,7 +20,7 @@
       <p class="font-medium break-word">{task.content}</p>
     </div>
 
-    <div class="card-actions justify-end mt-2 relative">
+    <div class="card-actions justify-end items-center mt-2 relative">
       <!--! Date -->
       <p class="text-sm text-base-content-100 relative text-end self-center mr-2">Due to: {task.date}</p>
 
