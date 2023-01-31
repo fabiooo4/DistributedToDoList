@@ -29,6 +29,6 @@
       <Task {task}/>
     {/each}
   {:else}
-    <h2 class='text-2xl text-center font-bold m-4'>No tasks yet</h2>
+    <h2 class='text-2xl text-center font-bold m-4'>No tasks found...</h2>
   {/if}
 </div>
