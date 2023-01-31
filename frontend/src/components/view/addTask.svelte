@@ -34,7 +34,7 @@
 <div class="flex justify-center m-2">
   <!--! Button to open modal -->
   <!-- svelte-ignore a11y-click-events-have-key-events -->
-  <label for="addTaskModal" class="btn btn-secondary p-3 rounded-full" on:click={clear}>
+  <label for="addTaskModal" class="btn btn-accent p-3 rounded-full" on:click={clear}>
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@48,400,0,0" />
     <span class="material-symbols-outlined">
       add

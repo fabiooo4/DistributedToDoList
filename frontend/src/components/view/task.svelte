@@ -25,7 +25,7 @@
       <p class="text-sm text-base-content-100 relative text-end self-center mr-2">Due to: {task.date}</p>
 
       <!--! Edit button -->
-      <EditTask {task} />
+      <EditTask {task}/>
 
       <!--! Delete button -->
       <DeleteTask {task} />
